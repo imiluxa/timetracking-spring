@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Activities</title>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <h1 class="display-4" th:text="#{activities.head}"> List</h1>
+                <hr>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6" th:each="activity : ${activity}">
+                    <div class="card mb-3 shadow-sm">
+                        <div class="card-header">
+                            <p><span th:text="${activity.name}"></span></p>
+                        </div>
+                        <div class="card-body">
+                            <p><span th:text="${activity.goal}"></span></p>
+                        </div>
+                        <div class="card-footer">
+                            <p>
+                                <span th:text="#{activities.id}">Id: </span>
+                                <span th:text="${activity.id}"></span>
+                            </p>
+
+                            <p>
+                                <span th:text="#{activities.users}"></span>
+                                <span th:each="user : ${activity.users}">
+                                    <span th:text="${user.username}"></span><span>;</span>
+                                </span>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div aria-label="btn-group" class="btn-group" role="group">
+                                    <a class="btn btn-sm btn-secondary"
+                                       sec:authorize="hasAuthority('ADMIN')"
+                                       th:href="@{/activities/delete/{id}(id=${activity.id})}"
+                                       th:text="#{activities.button.delete}">
+                                        Delete
+                                    </a>
+                                    <a class="btn btn-sm btn-secondary"
+                                       th:href="@{/activities/request/add/{id}(id=${activity.id})}"
+                                       th:text="#{activities.button.add}">
+                                        Add
+                                    </a>
+                                    <a class="btn btn-sm btn-secondary"
+                                       th:href="@{/activities/request/complete/{id}(id=${activity.id})}"
+                                       th:text="#{activities.button.complete}">
+                                        Completed
+                                    </a>
+                                    <button type="button" class="btn btn-sm btn-primary" data-toggle="modal"
+                                            data-target="#EnterDuration" th:attrappend="data-target=${activity.id}"
+                                            th:text="#{activities.button.enter_duration}">
+                                        Enter duration
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div aria-hidden="true" aria-labelledby="EnterDurationTitle" class="modal fade"
+                                 id="EnterDuration" role="dialog" tabindex="-1"
+                                 th:attrappend="id=${activity.id}">
+                                <div class="modal-dialog modal-dialog-centered" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="EnterDurationTitle"
+                                                th:text="#{activities.duration.title}">
+                                                Enter hour duration
+                                            </h5>
+                                            <button aria-label="Close" class="close" data-dismiss="modal"
+                                                    type="button">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <form method="post"
+                                              th:action="@{/activities/duration/{id}(id=${activity.id})}"
+                                              th:object="${duration}">
+                                            <div class="modal-body">
+                                                <div class="input-group mb-3">
+                                                    <div class="input-group-prepend">
+                                                        <span class="input-group-text"
+                                                              th:text="#{activities.duration.hours}">Hours</span>
+                                                    </div>
+                                                    <input aria-label="hours" class="form-control"
+                                                           th:field="*{hours}" type="number">
+                                                </div>
+                                                <p class="text-danger" th:errors="*{hours}"
+                                                   th:if="${#fields.hasErrors('hours')}"></p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button class="btn btn-secondary" data-dismiss="modal"
+                                                        th:text="#{activities.duration.button.close}"
+                                                        type="button">
+                                                    Close
+                                                </button>
+                                                <button class="btn btn-primary"
+                                                        th:text="#{activities.duration.button.confirm}"
+                                                        type="submit">
+                                                    Confirm
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--End modal window-->
+                            <small>
+                                <span th:text="#{activities.status}">Status:</span>
+                                <span
+                                        th:text="${activity.status}">
+                                </span>
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

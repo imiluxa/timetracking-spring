@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="display-3">
+                <span th:text="#{profile.head}"></span>
+                <span th:text="${user.firstName}"></span>
+            </h1>
+            <hr>
+        </div>
+        <div class="card-body">
+            <div class="card-text">
+                <span th:text="#{profile.firstname}">First name: </span>
+                <span th:text="${user.firstName}"></span>
+            </div>
+            <hr>
+            <div class="card-text">
+                <span th:text="#{profile.lastname}">Last name: </span>
+                <span th:text="${user.lastName}"></span>
+            </div>
+            <hr>
+            <div class="card-text">
+                <span th:text="#{profile.username}">Username: </span>
+                <span th:text="${user.username}"></span>
+            </div>
+            <hr>
+            <div class="card-text">
+                <span th:if="${user.activities.isEmpty()}" th:text="#{profile.noactivities}">You havent activities</span>
+                <table th:unless="${user.activities.isEmpty()}"
+                       class="table table-sm table-bordered table-striped">
+                    <caption style="caption-side: top" th:text="#{profile.activities}">Your activities
+                    </caption>
+                    <thead>
+                    <tr>
+                        <th th:text="#{profile.activitie.name}">Name Activity</th>
+                        <th th:text="#{profile.activitie.status}">Activity Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="activity : ${user.activities}">
+                        <td th:text="${activity.name}"></td>
+                        <td th:text="${activity.status}"></td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+</body>
+</html>

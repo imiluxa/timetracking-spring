@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+</head>
+<body>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="display-4" th:text="#{registration.head}"></h1>
+            <hr>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/registration}" th:object="${user}" method="post">
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label>
+                            <span th:text="#{registration.firstname}"></span>
+                            <input type="text"
+                                   th:field="*{firstName}"
+                                   th:placeholder="#{registration.firstname.placeholder}"
+                                   class="form-control"
+                                   required/>
+                        </label>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>
+                            <span th:text="#{registration.lastname}"></span>
+                            <input type="text"
+                                   th:field="*{lastName}"
+                                   th:placeholder="#{registration.lastname.placeholder}"
+                                   class="form-control"
+                                   required
+                            />
+                        </label>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col-md-3 mb-3">
+                        <label>
+                            <span th:text="#{registration.username}"></span>
+                            <input type="text"
+                                   th:field="*{username}"
+                                   th:placeholder="#{registration.username.placeholder}"
+                                   class="form-control"
+                                   required/>
+                        </label>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <label>
+                            <span th:text="#{registration.password}"></span>
+                            <input type="password"
+                                   th:field="*{password}"
+                                   th:placeholder="#{registration.password.placeholder}"
+                                   class="form-control"
+                                   required
+                            />
+                        </label>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" th:text="#{registration.signup}">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

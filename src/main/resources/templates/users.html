@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body>
+<div class = "container">
+    <div class = "row">
+        <div class = "col-md-12">
+            <div class = "card">
+                <div class = "card-header">
+                    <h1 class = "h3 mb-3" th:text = "#{users.head}">All users</h1>
+                    <hr>
+                </div>
+                <div class = "card-body">
+                    <table class = "table table-striped">
+                        <thead>
+                        <tr>
+                            <th th:text="#{users.id}">Id</th>
+                            <th th:text="#{users.firstname}">First name</th>
+                            <th th:text="#{users.lastname}">Last name</th>
+                            <th th:text="#{users.username}">Email</th>
+                            <th th:text="#{users.active}">Active</th>
+                            <th th:text="#{users.role}">Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="user : ${users}">
+                            <td><span th:text="${user.id}"></span></td>
+                            <td><span th:text="${user.firstName}"></span></td>
+                            <td><span th:text="${user.lastName}"></span></td>
+                            <td><span th:text="${user.username}"></span></td>
+                            <td><span th:text="${user.enabled}"></span></td>
+                            <td><span th:text="${user.authorities}"></span></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
