@@ -3,8 +3,6 @@ package ua.iamiluxa.timetrackingspringproject.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import java.time.Duration;
-import java.time.LocalDateTime;
 import java.util.Set;
 
 @Data

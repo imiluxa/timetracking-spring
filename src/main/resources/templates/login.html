@@ -6,9 +6,12 @@
     <title>Login</title>
 </head>
 <body class = "text-center">
+
+<div th:replace="~{headbar::navbar}"></div>
+
 <form class = "form-signin" th:action="@{/login}" method="post">
     <h1 class="h3 mb-3" th:text="#{login.head}">Sign in</h1>
-    <label id="usernameLabel" for="username" class="sr-only" th:text="#{login.label.username}"></label>
+    <label id="usernameLabel" for="username" class="sr-only" th:text="#{login.username}"></label>
     <input type="text"
            id="username"
            name="username"
@@ -17,7 +20,7 @@
            required
            autofocus
     >
-    <label id="passwordLabel" for="password" class="sr-only" th:text="#{login.label.password}"></label>
+    <label id="passwordLabel" for="password" class="sr-only" th:text="#{login.password}"></label>
     <input type="password"
            name="password"
            id="password"

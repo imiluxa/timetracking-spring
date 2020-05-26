@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en"
-      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+      xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
     <title>Activities</title>
 </head>
 <body>
+
+<div th:replace="~{headbar::navbar}"></div>
 
 <div class="container">
     <div class="card">
@@ -109,7 +111,6 @@
                                     </div>
                                 </div>
                             </div>
-                            <!--End modal window-->
                             <small>
                                 <span th:text="#{activities.status}">Status:</span>
                                 <span

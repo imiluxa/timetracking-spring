@@ -1,7 +1,7 @@
 package ua.iamiluxa.timetrackingspringproject.entity;
 
 public enum RequestStatus {
-    CONFIRMED("confirmed"),
+    CONFIRMED("Confirmed"),
     DECLINED("Declined"),
     WAITING("Waiting");
 

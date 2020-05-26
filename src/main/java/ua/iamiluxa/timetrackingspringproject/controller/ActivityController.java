@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import ua.iamiluxa.timetrackingspringproject.dto.ActivityDTO;
 import ua.iamiluxa.timetrackingspringproject.dto.DurationDTO;
 import ua.iamiluxa.timetrackingspringproject.entity.User;
 import ua.iamiluxa.timetrackingspringproject.service.ActivityService;
@@ -45,6 +46,25 @@ public class ActivityController {
         }
 
         activityService.enterDuration(activityId, durationDTO, user);
+
+        return "activities";
+    }
+
+    @GetMapping("/activities/add")
+    public String getAddActivityPage(Model model,
+                                     @ModelAttribute("activity") ActivityDTO activityDTO) {
+        return "addactivity";
+    }
+
+    @PostMapping("/activities/add")
+    public String addActivity(@ModelAttribute("activity") @Valid ActivityDTO activityDTO,
+                              BindingResult bindingResult,
+                              Model model) {
+        if (bindingResult.hasErrors()) {
+            return "addactivity";
+        }
+
+        activityService.addActivity(activityDTO);
 
         return "activities";
     }

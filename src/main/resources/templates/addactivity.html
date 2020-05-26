@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Activity</title>
+</head>
+<body>
+
+<div th:replace="~{headbar::navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h1 class="display-4" th:text="#{activities.add.head}">Add Activity</h1>
+            <hr>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <form method="post" th:action="@{/activities/add}" th:object="${activity}">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label class="col-form-label" for="name"
+                                       th:text="#{activities.add.name}">Activity Name</label>
+                                <input class="form-control" id="name" th:field="*{name}"
+                                       th:placeholder="#{activities.add.name.placeholder}" type="text"
+                                       required/>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label" for="description"
+                                       th:text="#{activities.add.goal}">Activity description</label>
+                                <textarea id="description" rows="4"
+                                          th:field="*{goal}"
+                                          th:placeholder="#{activities.add.goal.placeholder}"
+                                          class="form-control"></textarea>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mt-1">
+                                <input class="btn btn-primary" th:value="#{activities.add.button.submit}" type="submit">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

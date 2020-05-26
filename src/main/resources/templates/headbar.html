@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head>
+    <meta charset="UTF-8">
+    <title>Headbar</title>
+</head>
+<body>
+<nav th:fragment="navbar" class="navbar navbar-expand-md navbar-dark bg-dark">
+    <a class="navbar-brand" href="/index">
+        Time-Tracking
+    </a>
+    <div class="collapse navbar-collapse" id="navbars">
+        <span style="float: right">
+            <a href="?lang=en" th:text="#{choose.lang.en}">en</a>
+            |
+            <a href="?lang=ru" th:text="#{choose.lang.ru}">ru</a>
+        </span>
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/index}" th:text="#{headbar.home}"></a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item active">
+                <a class="nav-link" th:href="@{/profile}" th:text="#{headbar.profile}"></a>
+            </li>
+            <li sec:authorize="hasAuthority('ADMIN')" class="nav-item active">
+                <a class="nav-link" th:href="@{/users}" th:text="#{headbar.all_users}"></a>
+            </li>
+            <li sec:authorize="isAuthenticated()" class="nav-item dropdown active">
+                <a class="nav-link dropdown-toggle" href="#" id="headbarDropdown" role="button" data-toggle="dropdown"
+                   aria-expanded="false" aria-haspopup="true" th:text="#{headbar.activities}">
+                    Activities
+                </a>
+                <div class="dropdown-menu" aria-labelledby="headbarDropdown">
+                    <a class="dropdown-item" href="/activities" th:text="#{headbar.activities}">Activities</a>
+                    <a class="dropdown-item" href="/activities/add" sec:authorize="hasAuthority('ADMIN')"
+                       th:text="#{headbar.add_activity}">
+                        Add Activity
+                    </a>
+                    <a class="dropdown-item" href="/activities/request" sec:authorize="hasAuthority('ADMIN')"
+                       th:text="#{headbar.all_requests}">
+                        All requests
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <div class="form-inline my-2 my-lg-0" sec:authorize="!isAuthenticated()">
+            <form action="/registration" method="get">
+                <button class="btn btn-outline-primary mr-3 my-2 my-sm-0" th:text="#{button.signup}" type="submit">
+                    Sign up
+                </button>
+            </form>
+            <form action="/login" method="get">
+                <button type="submit" class="btn btn-primary my-2 my-sm-0" th:text="#{button.signin}"></button>
+            </form>
+        </div>
+        <div sec:authorize="isAuthenticated()">
+            <form class="form-inline my-2 my-lg-0" action="/logout" method="get">
+                <button type="submit" class="btn btn-primary my-2 my-sm-0" th:text="#{button.signout}">Log out</button>
+            </form>
+        </div>
+    </div>
+</nav>
+</body>
+</html>

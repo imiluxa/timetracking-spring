@@ -17,7 +17,6 @@ import ua.iamiluxa.timetrackingspringproject.repository.UserRepo;
 import javax.persistence.NoResultException;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Stream;
 
 @Log4j2
 @Service

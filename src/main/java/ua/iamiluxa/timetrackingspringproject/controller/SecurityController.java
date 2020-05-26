@@ -6,7 +6,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.access.AccessDeniedHandler;
+
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import ua.iamiluxa.timetrackingspringproject.service.UserService;
 
@@ -14,14 +14,11 @@ import ua.iamiluxa.timetrackingspringproject.service.UserService;
 @EnableWebSecurity
 public class SecurityController extends WebSecurityConfigurerAdapter {
     private final UserService userService;
-    private final AccessDeniedHandler accessDeniedHandler;
     private final PasswordEncoder passwordEncoder;
 
     public SecurityController(UserService userService,
-                              AccessDeniedHandler accessDeniedHandler,
                               PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.accessDeniedHandler = accessDeniedHandler;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -36,11 +33,11 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
 
         httpSecurity
                 .authorizeRequests()
-                .antMatchers("/js/**", "/images/**", "/css/**", "/index", "/", "/access-denied", "/favicon.ico", "/error/**")
+                .antMatchers("/js/**", "/css/**", "/index", "/", "/favicon.ico")
                 .permitAll()
-                .antMatchers("/users/**", "/activities/request", "/activities/add", "/activities/delete/**", "/activities/edit/**", "/activities/request/approve/**", "/activities/request/reject/**")
+                .antMatchers("/users/**", "/activities/request", "/activities/add", "/activities/delete/**", "/activities/edit/**", "/activities/request/approve/**", "/activities/request/decline/**")
                 .hasAuthority("ADMIN")
-                .antMatchers("/profile", "/activities", "/activities/mark-time/**", "/activities/request/add/**", "/activities/request/complete/**")
+                .antMatchers("/profile", "/activities", "/activities/duration/**", "/activities/request/add/**", "/activities/request/complete/**")
                 .hasAnyAuthority("ADMIN", "USER")
                 .antMatchers("/registration", "/login")
                 .anonymous()
@@ -56,8 +53,7 @@ public class SecurityController extends WebSecurityConfigurerAdapter {
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutSuccessUrl("/login?logout")
                 .and()
-                .exceptionHandling()
-                .accessDeniedHandler(accessDeniedHandler);
+                .exceptionHandling();
     }
 
 }

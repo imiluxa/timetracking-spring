@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Requests</title>
+</head>
+<body>
+
+<div th:replace="~{headbar::navbar}"></div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <div>
+                <h1 class="display-4" th:text="#{request.head}">Requests</h1>
+                <hr>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div th:each="request : ${Requests}" class="col-md-3">
+                    <div class="card mb-4 shadow-sm">
+                        <div class="card-header">
+                            <p><span th:text="${request.activity.name}"></span></p>
+                            <p><span th:text="${request.user.username}"></span></p>
+                        </div>
+                        <div class="card-body">
+                            <p>
+                                <span th:text="#{request.id}">Id: </span>
+                                <span th:text="${request.id}"></span>
+                            </p>
+                            <p>
+                                <span th:text="#{request.activity_id}">Activity id: </span>
+                                <span th:text="${request.activity.id}"></span>
+                            </p>
+                            <p>
+                                <span th:text="#{request.user_id}">User id: </span>
+                                <span th:text="${request.user.id}"></span>
+                            </p>
+                            <p>
+                                <span th:text="#{request.action}">Action: </span>
+                                <span th:text="${request.requestAction}"></span>
+                            </p>
+                            <p>
+                                <span th:text="#{request.status}">Status: </span>
+                                <span th:text="${request.status}"></span>
+                            </p>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="btn-group">
+                                    <a class="btn btn-sm btn-secondary"
+                                       th:href="@{/activities/request/approve/{id}(id=${request.id})}"
+                                       th:text="#{request.confirm}">
+                                        Approve
+                                    </a>
+                                    <a class="btn btn-sm btn-secondary"
+                                       th:href="@{/activities/request/reject/{id}(id=${request.id})}"
+                                       th:text="#{request.decline}">
+                                        Reject
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <div th:replace="~{/fragments/pagination.html::page-navigation(url='/activities/request',page=${activityRequests})}"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
